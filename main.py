@@ -3,6 +3,10 @@ from mistralai import Mistral
 import json
 from function_calling import tools, names_to_functions
 
+"""
+https://docs.mistral.ai/capabilities/function_calling/
+"""
+
 api_key = "COjKAsQBhtXI95pip5gDjSbZJ9H63q7r"
 client = Mistral(api_key=api_key)
 
