@@ -22,7 +22,44 @@ def retrieve_payment_date(df: data, transaction_id: str) -> str:
         return json.dumps({'date': df[df.transaction_id == transaction_id].payment_date.item()})
     return json.dumps({'error': 'transaction id not found.'})
 
-names_to_functions = {
+transaction_tools = [
+    {
+        "type": "function",
+        "function": {
+            "name": "retrieve_payment_status",
+            "description": "Get payment status of a transaction",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "transaction_id": {
+                        "type": "string",
+                        "description": "The transaction id.",
+                    }
+                },
+                "required": ["transaction_id"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "retrieve_payment_date",
+            "description": "Get payment date of a transaction",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "transaction_id": {
+                        "type": "string",
+                        "description": "The transaction id.",
+                    }
+                },
+                "required": ["transaction_id"],
+            },
+        },
+    }
+]
+
+transaction_names_to_functions = {
     'retrieve_payment_status': functools.partial(retrieve_payment_status, df=df),
     'retrieve_payment_date': functools.partial(retrieve_payment_date, df=df)
 }

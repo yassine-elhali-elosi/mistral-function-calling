@@ -21,8 +21,26 @@ def retrieve_minimum_charging_points_number(df: data_df, nb: int) -> object:
     print(len(results))
     return results
 
-retrieve_minimum_charging_points_number(data_df, 8)
+bornes_elec_tools = [
+    {
+        "type": "function",
+        "function": {
+            "name": "retrieve_minimum_charging_points_number",
+            "description": "Get charging points with a minimum number of charging points.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "nbre_pdc": {
+                        "type": "integer",
+                        "description": "The minimum number of charging points.",
+                    }
+                },
+                "required": ["nbre_pdc"],
+            },
+        },
+    }
+]
 
-names_to_functions = {
+bornes_elec_names_to_functions = {
     'retrieve_minimum_charging_points_number': functools.partial(retrieve_minimum_charging_points_number, df=data_df)
 }
