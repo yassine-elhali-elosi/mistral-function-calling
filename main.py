@@ -10,10 +10,6 @@ https://docs.mistral.ai/capabilities/function_calling/
 api_key = "COjKAsQBhtXI95pip5gDjSbZJ9H63q7r"
 client = Mistral(api_key=api_key)
 
-#messages = [{"role": "user", "content": "What's the status of my transaction T1001"}]
-##########################
-messages = [{"role": "user", "content": "What stations have at least 5 charging points?"}]
-
 def function_calling(dataSource):
     if dataSource == "transactions":
         messages = [{"role": "user", "content": "What's the status of my transaction T1001"}]

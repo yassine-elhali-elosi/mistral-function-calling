@@ -10,8 +10,8 @@ data_df = pd.DataFrame(data)
 
 def retrieve_minimum_charging_points_number(df: data_df, nbre_pdc: int) -> object:
     results = []
-    for i in range(len(data_df)):
-        element = data_df.iloc[i]
+    for i in range(len(df)):
+        element = df.iloc[i]
         if element["nbre_pdc"] >= nbre_pdc:
             results.append(element)
 
