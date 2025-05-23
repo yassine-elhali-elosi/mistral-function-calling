@@ -16,7 +16,7 @@ def function_calling(dataSource):
         tools = transaction_tools
         names_to_functions = transaction_names_to_functions
     else:
-        messages = [{"role": "user", "content": "What stations have at least 5 charging points?"}]
+        messages = [{"role": "user", "content": "What stations have at least 8 charging points?"}]
         tools = bornes_elec_tools
         names_to_functions = bornes_elec_names_to_functions
     
@@ -38,6 +38,8 @@ def function_calling(dataSource):
     function_result = names_to_functions[function_name](**function_params)
     print(function_result)
 
+    print(tool_call.id)
+
     messages.append({
         "role": "tool",
         "name": function_name,
@@ -52,4 +54,6 @@ def function_calling(dataSource):
 
     print(response.choices[0].message.content)
 
+#function_calling("transactions")
+print("--------------------------")
 function_calling("bornes_elec")

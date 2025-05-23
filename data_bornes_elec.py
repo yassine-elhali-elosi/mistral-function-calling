@@ -5,27 +5,34 @@ import json
 import functools
 
 r = requests.get("https://tabular-api.data.gouv.fr/api/resources/eb76d20a-8501-400e-b336-d85724de5435/data/")
-data = r.json()["data"]
-data_df = pd.DataFrame(data)
+data_df = r.json()["data"]
+#data_df = pd.DataFrame(data)
 
-def retrieve_minimum_charging_points_number(df: data_df, nbre_pdc: int) -> object:
+def toto(df: data_df, nbre_pdc: int) -> object:
     results = []
     for i in range(len(df)):
-        element = df.iloc[i]
+        element = df[i]
         if element["nbre_pdc"] >= nbre_pdc:
-            results.append(element)
+            results.append({
+                "name": element["nom_amenageur"],
+                "nbre_pdc": element["nbre_pdc"],
+            })
 
     if len(results) == 0:
         return json.dumps({'error': 'No charging points found with the specified number.'})
     #print(results)
     #print(len(results))
-    return json.dumps({'count': len(results)})
+    print(results)
+    return json.dumps({'data': results})
+
+if __name__ == "__main__":
+    print(toto(data_df, 8))
 
 bornes_elec_tools = [
     {
         "type": "function",
         "function": {
-            "name": "retrieve_minimum_charging_points_number",
+            "name": "toto",
             "description": "Get charging points with a minimum number of charging points.",
             "parameters": {
                 "type": "object",
@@ -42,5 +49,5 @@ bornes_elec_tools = [
 ]
 
 bornes_elec_names_to_functions = {
-    'retrieve_minimum_charging_points_number': functools.partial(retrieve_minimum_charging_points_number, df=data_df)
+    'toto': functools.partial(toto, df=data_df)
 }
