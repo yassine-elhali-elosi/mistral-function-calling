@@ -7,7 +7,8 @@ from data_bornes_elec import bornes_elec_tools, bornes_elec_names_to_functions
 https://docs.mistral.ai/capabilities/function_calling/
 """
 
-api_key = "COjKAsQBhtXI95pip5gDjSbZJ9H63q7r"
+#use .env
+api_key = "..." # clé API Mistral
 client = Mistral(api_key=api_key)
 
 def function_calling(dataSource):
@@ -16,12 +17,12 @@ def function_calling(dataSource):
         tools = transaction_tools
         names_to_functions = transaction_names_to_functions
     else:
-        messages = [{"role": "user", "content": "What stations have at least 8 charging points?"}]
+        messages = [{"role": "user", "content": "What stations have at least 4 charging points? And how many?"}]
         tools = bornes_elec_tools
         names_to_functions = bornes_elec_names_to_functions
     
     chat_response = client.agents.complete(
-        agent_id="ag:7e1f4155:20250521:untitled-agent:7404ab45",
+        agent_id="...", # ID de ton agent Mistral
         messages=messages,
         tools=tools,
         tool_choice="any",
@@ -48,7 +49,7 @@ def function_calling(dataSource):
     })
 
     response = client.agents.complete(
-        agent_id="ag:7e1f4155:20250521:untitled-agent:7404ab45",
+        agent_id="...", # ID de ton agent Mistral
         messages=messages
     )
 
